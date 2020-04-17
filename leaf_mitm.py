@@ -2,6 +2,9 @@ import socket
 import time
 from hash import Hash
 import threading
+from gestion_packet import Gestion_Packet
+
+
 
 
 class LeafMITM():
@@ -9,7 +12,7 @@ class LeafMITM():
     def __init__(self,addresse):
         self.hash = Hash()
         self.my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    
+        
 
         try:
             self.connection_to_auth()
@@ -18,7 +21,6 @@ class LeafMITM():
             print ("connection failed")
         
         threading.Thread(None,self.recv_msg_s).start()
-        threading.Thread(None,self.recv_msg_c).start()
         threading.Thread(None,self.send_packet).start()
 
     def send_packet(self):
@@ -34,9 +36,7 @@ class LeafMITM():
         self.client_socket.listen(2)
         self.client_connection, self.client_adresse = self.client_socket.accept()
         threading.Thread(None,self.recv_msg_c).start()
-
-
-    
+        
     
     def connection_to_world(self):
         addresse = ("127.0.0.1",5555)
@@ -45,32 +45,23 @@ class LeafMITM():
         self.world_socket.listen(1)
         self.client_connection, self.client_adresse = self.world_socket.accept()
         threading.Thread(None,self.recv_msg_c).start()
-
-
-        
-        
-        
-
-
+    
     def recv_msg_c(self):
         while True:  
             try:
                 packet = self.client_connection.recv(1024).decode()
                 if packet != "":
-                    print("Client: " + packet)
+                    #print("Client: " + packet)
                     self.my_socket.send(packet.encode())
             except:
                 break
             
-                
-
-        
-        
     def recv_msg_s(self):
+        self.gestion_packet = Gestion_Packet()
         while  True:
             packet = self.my_socket.recv(1024).decode()
             if packet != "":
-                print("Server: " + packet)
+                #print("Server: " + packet)
                 if packet[:3] == "AXK":
                     threading.Thread(None,self.connection_to_world).start()
                     self.client_connection.send("AXK7?000001bwZa369f58\x00".encode())
@@ -80,14 +71,14 @@ class LeafMITM():
                     ip = self.hash.decrypt_IP(packet[3:11])
                     self.my_socket.connect((ip,5555))
                 else:
+                    self.gestion_packet.gestion(packet)
                     try:
                         self.client_connection.send(packet.encode())
                     except:
                         pass
                         
                 
-
-            
+           
 
 
 
