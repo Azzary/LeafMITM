@@ -136,6 +136,22 @@ class Interface(threading.Thread):
         self.onglet_map.pack()
         self.onglets.add(self.onglet_map, text='map')
         
+        
+        
+    def create_tableau_spell(self):
+        self.tableau = ttk.Treeview(self.onglets_sorts, columns=("ID", "NAME", "LVL"))
+        #self.tableau.heading("ICONE", text="icone")
+        self.tableau.heading("ID", text="ID")
+        self.tableau.heading("NAME", text="name")
+        self.tableau.heading("LVL", text="lvl")
+        self.tableau["show"] = "headings" 
+        self.scrollbar2 = Scrollbar(self.tableau)
+        self.scrollbar2.pack( side = RIGHT, fill=Y)
+        self.tableau.place(relx=0.05, rely=0.1, relwidth=0.85, relheight=0.75) #self.tableau.pack()
+        
+    def add_spell(self,id_,name,lvl):
+        self.tableau.insert('', 'end', values=(id_,name,lvl))        
+
     def launch(self):
         self.bot = Tk()
         self.bot.title('bot')
@@ -145,7 +161,7 @@ class Interface(threading.Thread):
         self.create_text()
         
         
-        
+        self.create_tableau_spell()
         self.create_canvas_character()
         
         #Button(onglets_personnage, text='test', command=None).pack(padx=100, pady=100)
