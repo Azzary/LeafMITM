@@ -8,27 +8,44 @@ class Gestion_Packet():
     
     def __init__(self):
         self.interface = Interface()
-        self
         
-    def gestion_server(self,packet,socket):
-        if packet != "":
-            print("Server: " + packet)
-            if packet[:3] == "ASK":
-                info_perso = packet[3:].split("|")
-                self.character = Character(id_ = info_perso[1],pseudo = info_perso[2],lvl = info_perso[3],id_class = info_perso[4],sexe = info_perso[5],gfx = info_perso[6])
-                self.interface.create_charater(self.character.gfx,self.character.pseudo,self.character.id_,self.character.lvl)
-            elif packet[:2] == "SL":
-                spells_data = packet[2:].split(";")
-                self.spells = Spells(self.interface,spells_data)
-            elif packet[:2] == "As":
-                self.character.character_stats(packet[2:].split("|"))
-                self.interface.base_start(self.character)
-                self.interface.create_label_caracteristique(self.character)
+        
+    def gestion_server(self,packet):
+        print("Server:" + packet)
+        if packet[:3] == "ASK":
+            info_perso = packet[3:].split("|")
+            self.character = Character(id_ = info_perso[1],pseudo = info_perso[2],lvl = info_perso[3],id_class = info_perso[4],sexe = info_perso[5],gfx = info_perso[6])
+            self.interface.create_charater(self.character.gfx,self.character.pseudo,self.character.id_,self.character.lvl)
+        elif packet[:2] == "SL":
+            spells_data = packet[2:].split(";")
+            self.spells = Spells(self.interface,spells_data)
+        elif packet[:2] == "As":
+            self.character.character_stats(packet[2:].split("|"))
+            self.interface.base_start(self.character)
+            self.interface.create_label_caracteristique(self.character)
+        elif packet[:3] == "GDM":
+                data = packet.split("|")
+                mapID = data[1]
+                creation_date = data[2]
+                decryption_key = data[3]
+        elif packet[:2] == "Ow":
+                data = packet[2:].split("|")
+                pods_actu = data[0]
+                pods_max = data[1]
+                
+        
+            
+                
+                
+                
         return packet
-                    
-    def gestion_client(self,packet,socket):
-        if packet != "":
-            print("Client: " + packet)
+     
+     
+     
+                   
+    def gestion_client(self,packet):
+        print("Client: ")
+        return packet
                 
             
         

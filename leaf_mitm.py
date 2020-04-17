@@ -47,27 +47,27 @@ class LeafMITM():
     
     def recv_msg_c(self):
         while True:
-            packets = self.client_connection.recv(1024).decode()
+            packets = self.client_connection.recv(4096).decode()
             for packet in packets.split("\x00"):
                 if packet != "":
-                    packet += "\x00"  
-                try:
-                    self.gestion_packet.gestion_client(packet,self.my_socket)
-                    self.my_socket.send(packet.encode())
-                except:
-                    break
+                    try:
+                        packet = self.gestion_packet.gestion_client(packet)
+                        packet += "\x00"  
+                        self.my_socket.send(packet.encode())
+                    except:
+                        break
             
     def recv_msg_s(self):
         
         while  True:
-            packets = self.my_socket.recv(1024).decode()
+            packets = self.my_socket.recv(4096).decode()
             for packet in packets.split("\x00"):
                 if packet != "":
-                    packet += "\x00"
                     if packet[:3] == "AXK":
                         self.switch_serveur(packet)
                     else:
-                        packet =  self.gestion_packet.gestion_server(packet,self.client_connection)
+                        packet =  self.gestion_packet.gestion_server(packet)
+                        packet += "\x00"
                         try:
                             self.client_connection.send(packet.encode())
                         except:

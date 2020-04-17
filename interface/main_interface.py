@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk 
 import os
-
+from interface.map import Map
 
 
 
@@ -79,12 +79,6 @@ class Interface(threading.Thread):
         self.label_agi = Label(self.onglets_personnage, text = character.agi)
         self.label_agi.place(relx=0.80, rely=0.80, relwidth=0.1, relheight=0.12)
 
-
-
-
-        
-     
-
     def base_start(self,character):
         self.vita = Label(self.bot, bg="red", text = character.vie_actuelle +" / " + character.vie_max)
         self.vita.pack()
@@ -108,8 +102,7 @@ class Interface(threading.Thread):
         photo = ImageTk.PhotoImage(image)
         canvas_.create_image(photo.width(),photo.height(),image=photo)
         canvas_.image = photo
-
-
+    
     def create_notebook(self):
         self.onglets = ttk.Notebook(self.bot)
         self.onglets.pack()
@@ -135,8 +128,6 @@ class Interface(threading.Thread):
         self.onglet_map = ttk.Frame(self.onglets)      
         self.onglet_map.pack()
         self.onglets.add(self.onglet_map, text='map')
-        
-        
         
     def create_tableau_spell(self):
         self.tableau = ttk.Treeview(self.onglets_sorts, columns=("ID", "NAME", "LVL"))
@@ -165,7 +156,7 @@ class Interface(threading.Thread):
         self.create_canvas_character()
         
         #Button(onglets_personnage, text='test', command=None).pack(padx=100, pady=100)
-        #self.map = Map(self.onglet_map)
+        self.map = Map(self.onglet_map)
 
         
         self.bot.mainloop()
