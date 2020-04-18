@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk 
 import os
-from interface.map import Map
+from interface.map_interface import MapInterface
 
 
 
@@ -30,6 +30,11 @@ class Interface(threading.Thread):
         self.richTextBox1.place(relx=0.05, rely=0.07, relwidth=0.85, relheight=0.75)
         self.scrollbar = Scrollbar(self.richTextBox1)
         self.scrollbar.pack( side = RIGHT, fill=Y)
+        
+    def print_richTextBox1(self,text):
+        self.richTextBox1.insert(END,text+"\n")
+        self.richTextBox1.see("end")
+          
 
     def create_canvas_character(self):
         self.canvas_gfx_character = Canvas(self.onglets_personnage)
@@ -120,13 +125,14 @@ class Interface(threading.Thread):
         self.onglets.add(self.onglets_personnage, text='character')
 
         #onglet pour le sort
-        self.onglets_sorts = ttk.Frame(self.onglets)      
+        self.onglets_sorts = ttk.Frame(self.onglets) 
         self.onglets_sorts.pack()
         self.onglets.add(self.onglets_sorts, text='spells')     
 
         #onglet pour le sort
         self.onglet_map = ttk.Frame(self.onglets)      
         self.onglet_map.pack()
+        
         self.onglets.add(self.onglet_map, text='map')
         
     def create_tableau_spell(self):
@@ -156,12 +162,13 @@ class Interface(threading.Thread):
         self.create_canvas_character()
         
         #Button(onglets_personnage, text='test', command=None).pack(padx=100, pady=100)
-        self.map = Map(self.onglet_map)
+        self.map = MapInterface(self.onglet_map)
 
         
         self.bot.mainloop()
         
-
+    def update_map(self, map_change):
+        self.map.update_map(map_change)
         
 
         

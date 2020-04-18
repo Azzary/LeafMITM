@@ -9,6 +9,7 @@ import  hash
 class LeafMITM():
     
     def __init__(self,addresse):
+        self.gestion_packet = Gestion_Packet()
         self.my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         self.addresse = ("127.0.0.1",443)
@@ -17,9 +18,8 @@ class LeafMITM():
             self.my_socket.connect(addresse)
         except socket.error:
             print ("connection failed")
-        self.gestion_packet = Gestion_Packet()
         threading.Thread(None,self.recv_msg_s).start()
-        threading.Thread(None,self.send_packet).start()
+        #threading.Thread(None,self.send_packet).start()
 
     def send_packet(self):
         while True:
