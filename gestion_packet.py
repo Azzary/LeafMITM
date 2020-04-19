@@ -10,7 +10,7 @@ class Gestion_Packet():
     
     def __init__(self):
         self.interface = Interface()
-        
+        self.map = None
         
     def gestion_server(self,packet):
         #print("Server:" + packet)
@@ -35,7 +35,8 @@ class Gestion_Packet():
                 self.mapID = data[1]
                 self.map_date = data[2]
                 self.decryption_key = data[3]
-                self.map.remove_entities()
+                if (self.map != None):
+                    self.map.remove_entities()
                 self.map = Map(self.mapID, self.map_date, self.decryption_key)
                 self.interface.update_map(self.map)
         #character pods
@@ -47,7 +48,7 @@ class Gestion_Packet():
         elif packet[:2] == "GM":
             print(packet)
             self.map_frame = Map_Frame(packet,self.map)
-            self.map = Map(self.mapID, self.map_date, self.decryption_key)
+            self.interface.update_map(self.map)
                           
                 
                 

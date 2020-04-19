@@ -33,7 +33,8 @@ class Map():
         cellid += [int(cellid[-1]+1)]
         raw_cells = [data[i:i+10] for i in range(0, len(data), 10)]
         self.cells = [Cell(raw_cells[i],cellid[i]) for i in range(len(raw_cells))]
-        
+
+                    
     
     def decrypt_mapdata(self, raw_data, raw_key):
         key = unquote(''.join([chr(int(raw_key[i:i+2], 16)) for i in range(0, len(raw_key), 2)]))
@@ -52,7 +53,7 @@ class Map():
         while row_number < self.height:
             if row_number % 2 == 0:
                 take = self.width -1
-                rows.append(self.cells[i:i+take,En])
+                rows.append(self.cells[i:i+take])
                 i += take
             else:
                 take = self.width 
@@ -62,15 +63,15 @@ class Map():
         return rows
       
     def change_colors(entity):
-        
+        pass
           
     def remove_entities(self):
-        self.entity = None
         for c in self.cells:
             c.set_entity(None)
 
     def place_entities(self, entities: [Entity]):
-        self.entity = entities
         indexed_by_cell = Collection(entities).index_by('cell')
         for cell in indexed_by_cell.keys():
             self.cells[int(cell)].set_entity(indexed_by_cell[cell])
+            self.cells[int(cell)].color = "red"
+            #self.table.set_data(self.map.matrixfy())
