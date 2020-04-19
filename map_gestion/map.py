@@ -66,10 +66,8 @@ class Map():
         pass
           
             
-    def remove_entities(self, entities: [Entity]):
-        indexed_by_cell = Collection(entities).index_by('cell')
-        for cell in indexed_by_cell.keys():
-            self.cells[int(cell)].set_default_color()
+    def remove_entities(self, entity):
+        self.cells[entity.cell].set_entity(None)
             #self.cells[int(cell)].color = "red"
             #self.table.set_data(self.map.matrixfy())        
 

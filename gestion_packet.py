@@ -46,9 +46,11 @@ class Gestion_Packet():
         #entity map information
         elif packet[:2] == "GM":
             #print(packet)
-            entity = Map_Frame(packet,self.map, self.entitie)
-            self.entitie.append(entity)
-            self.interface.update_entity(self.entitie)
+            self.map_frame = Map_Frame(packet,self.map, self.entitie)
+            self.entitie = self.map_frame.entities
+            self.entitie_remove = self.map_frame.entities_remove
+            #Enlever les try:exp... probleme avec les entities reglée 
+            self.interface.update_entity(self.entitie, self.entitie_remove)
             
             
             #self.interface.update_map(self.map)

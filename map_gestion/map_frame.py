@@ -6,8 +6,9 @@ class Map_Frame():
         self.entities = entitie
         self.map = _map
         self.action = '+'
+        self.entities_remove = []
         self.parse_data(raw_data)
-
+        
 
     def __repr__(self):
         return '\n'.join(map(str, self.entities)) if len(self.entities) else ''
@@ -51,15 +52,14 @@ class Map_Frame():
                 
             elif instance[0] == '-':  # player leave
                 entity_id = int(instance[1:])
-                self.action = '-'
+                
                 for entity in self.entities:
-                    try:
-                        if entity.id == entity_id:
-                            self.entities.remove(entity)
-                            self.map.remove_entities(self.entities)
-                            break
-                    except:
-                        continue
+                    if entity.id == entity_id:
+                        self.map.remove_entities(entity)
+                        self.entities.remove(entity)
+                        self.entities_remove.append(entity)
+                        break
+
                 
                     
         

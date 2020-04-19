@@ -42,32 +42,28 @@ class Table(tk.Frame):
                 widget.bind('<Button-1>', lambda e, a=i, b=j: self.debug_cell(a, b))
                 
                 
-    def set_entities(self, entitys):
+    def set_entities(self, entitys, entitys_remove):
         
-        entitys_cells = []
+        entity_cells = []
         
         for x in entitys:
             try:
-                entitys_cells += [x.cell]
+                entity_cells += [x.cell]
             except:
                 pass
-            
-        
         for i in range(len(self.cells)):
             for j in range(len(self.cells[i])):
-                print(self.cells[i][j].CellID)
-            
-                for cell in entitys_cells:
-                
-                    if(self.cells[i][j].CellID == cell):
-                        widget = self._widgets[i][j]
 
-                        
+                for entity in entitys:
+                    if(self.cells[i][j].CellID == entity.cell):
+                        widget = self._widgets[i][j]
                         widget['background'] = self.cells[i][j].color
                         #widget.(background=cell.color , text=str(cell.CellID))
                         #self._widgets[i][j]. .bind('<Button-1>', lambda e, a=i, b=j: self.debug_cell(a, b))
-
-    
+                for entity_remove in entitys_remove:
+                    if (self.cells[i][j].CellID == entity_remove.cell):
+                        widget = self._widgets[i][j]
+                        widget['background'] = self.cells[i][j].color
                                 
                 
             

@@ -170,8 +170,8 @@ class Interface(threading.Thread):
     def update_map(self, map_change):
         self.map.update_map(map_change)
     
-    def update_entity(self, entity):
-        self.map.update_entity(entity)
+    def update_entity(self, entity, entitie_remove):
+        self.map.update_entity(entity, entitie_remove)
         
 
         
