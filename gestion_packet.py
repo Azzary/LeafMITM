@@ -11,7 +11,7 @@ class Gestion_Packet():
     def __init__(self):
         self.interface = Interface()
         self.map = None
-        
+        self.entitie = []
     def gestion_server(self,packet):
         #print("Server:" + packet)
         self.interface.print_richTextBox1("Server:" + packet)
@@ -35,8 +35,7 @@ class Gestion_Packet():
                 self.mapID = data[1]
                 self.map_date = data[2]
                 self.decryption_key = data[3]
-                if (self.map != None):
-                    self.map.remove_entities()
+                self.entitie = []
                 self.map = Map(self.mapID, self.map_date, self.decryption_key)
                 self.interface.update_map(self.map)
         #character pods
@@ -46,9 +45,13 @@ class Gestion_Packet():
                 pods_max = data[1]
         #entity map information
         elif packet[:2] == "GM":
-            print(packet)
-            self.map_frame = Map_Frame(packet,self.map)
-            self.interface.update_map(self.map)
+            #print(packet)
+            entity = Map_Frame(packet,self.map, self.entitie)
+            self.entitie.append(entity)
+            self.interface.update_entity(self.entitie)
+            
+            
+            #self.interface.update_map(self.map)
                           
                 
                 

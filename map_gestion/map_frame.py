@@ -2,8 +2,8 @@ from map_gestion.entity import Entity
 
 class Map_Frame():
     
-    def __init__(self, raw_data,_map):
-        self.entities = []
+    def __init__(self, raw_data,_map, entitie):
+        self.entities = entitie
         self.map = _map
         self.action = '+'
         self.parse_data(raw_data)
@@ -52,4 +52,14 @@ class Map_Frame():
             elif instance[0] == '-':  # player leave
                 entity_id = int(instance[1:])
                 self.action = '-'
-                self.entities.append(Entity('Player' if entity_id > 0 else 'GroupMob', cell=0, id=entity_id))
+                for entity in self.entities:
+                    try:
+                        if entity.id == entity_id:
+                            self.entities.remove(entity)
+                            self.map.remove_entities(self.entities)
+                            break
+                    except:
+                        continue
+                
+                    
+        

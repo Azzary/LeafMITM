@@ -38,6 +38,10 @@ class MapInterface():
         
         self.init_table(self.map.width, self.map.height)
         self.update()
+    
+    def update_entity(self, entities):
+         
+        self.table.set_entities(entities)
         
     def update(self):
         if self.map:

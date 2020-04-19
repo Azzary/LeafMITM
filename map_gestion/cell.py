@@ -13,6 +13,8 @@ class Cell:
         self.entity = None
         self.color = 'black'
         self.CellID = CellID
+        self.x = None
+        self.y = None
         cd = unhash_cell(raw_data)
         self.isActive = (cd[0] & 32 >> 5) == 1
         self.lineOfSight = (cd[0] & 1) == 1
