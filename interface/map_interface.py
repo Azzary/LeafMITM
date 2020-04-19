@@ -4,7 +4,7 @@ from tkinter import ttk
 from map_gestion import map
 from interface.table import Table
 
-# source https://github.com/XeLiT
+
 
 class MapInterface():
 
