@@ -3,7 +3,7 @@ from map_gestion.cell import Cell
 import logging
 from map_gestion.entity import Entity
 
-# source https://github.com/XeLiT
+
 
 class Table(tk.Frame):
     def __init__(self, parent, rows, columns):
