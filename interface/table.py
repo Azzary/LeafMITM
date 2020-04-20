@@ -33,8 +33,8 @@ class Table(tk.Frame):
         for i in range(len(cells)):
             for j in range(len(cells[i])):
                 cell = cells[i][j]
-                self.cells[i][j].x = i
-                self.cells[i][j].y = j
+                self.cells[i][j].x = j
+                self.cells[i][j].y = int(x/2)
                 widget = self._widgets[i][j]
                 
                 
