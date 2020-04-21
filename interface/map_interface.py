@@ -25,8 +25,9 @@ class MapInterface():
 
     def init_table(self, width, height):
         if self.table:
+            
             self.table.pack_forget()
-            #self.table.destroy()
+            self.table.destroy()
         self.table = Table(self.onglet_map, rows=height, columns=width)
         self.table.grid(row=1, column=1, rowspan=height)    
         

@@ -15,6 +15,8 @@ class Cell:
         self.CellID = CellID
         self.x = None
         self.y = None
+        self.max_y  = None
+        self.max_x = None 
         cd = unhash_cell(raw_data)
         self.isActive = (cd[0] & 32 >> 5) == 1
         self.lineOfSight = (cd[0] & 1) == 1

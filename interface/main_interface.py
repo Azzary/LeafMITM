@@ -152,7 +152,7 @@ class Interface(threading.Thread):
     def launch(self):
         self.bot = Tk()
         self.bot.title('bot')
-        self.bot.geometry('1200x600+100+100')
+        self.bot.geometry('1200x900')
 
         self.create_notebook()
         self.create_text()
