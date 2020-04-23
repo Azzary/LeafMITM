@@ -54,12 +54,18 @@ class Map_Frame():
                 entity_id = int(instance[1:])
                 
                 for entity in self.entities:
-                    if entity.id == entity_id:
-                        self.map.remove_entities(entity)
+                    if entity.id == entity_id :                       
+                        self.map.remove_entities([entity])
                         self.entities.remove(entity)
                         self.entities_remove.append(entity)
                         break
 
                 
                     
+    def update_entity(self, entity,remove_entities):
+        self.map.remove_entities(remove_entities)
+        self.map.place_entities(entity)
         
+        self.entities = entity
+        for remov_enti in remove_entities:
+            self.entities_remove.append(remov_enti)

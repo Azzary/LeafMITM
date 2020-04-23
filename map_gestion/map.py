@@ -62,12 +62,14 @@ class Map():
             row_number += 1
         return rows
       
-    def change_colors(entity):
-        pass
+
           
             
-    def remove_entities(self, entity):
-        self.cells[entity.cell].set_entity(None)
+    def remove_entities(self, entitys):
+
+        for entity in entitys:
+            self.cells[entity.cell].set_entity(None)
+
             #self.cells[int(cell)].color = "red"
             #self.table.set_data(self.map.matrixfy())        
 

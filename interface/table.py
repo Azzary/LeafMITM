@@ -15,7 +15,7 @@ class Table(tk.Frame):
             current_row = []
             for column in range(columns):
                 if column == 0 and row%2 == 0:
-                    label = tk.Label(self, text=" ", borderwidth=0, width=2)
+                    label = tk.Label(self, text=" ", borderwidth=0, width=5)
                 else:
                     label = tk.Label(self, text=" ", borderwidth=0, width=5)
                 if row % 2  == 0:
@@ -51,27 +51,22 @@ class Table(tk.Frame):
                 
                 
     def set_entities(self, entitys, entitys_remove):
-        
-        entity_cells = []
-        
-        for x in entitys:
-            try:
-                entity_cells += [x.cell]
-            except:
-                pass
+       
         for i in range(len(self.cells)):
             for j in range(len(self.cells[i])):
-
+                
+                for entity_remove in entitys_remove:
+                    if (self.cells[i][j].CellID == entity_remove.cell):
+                        widget = self._widgets[i][j]
+                        widget['background'] = self.cells[i][j].color
+                        
                 for entity in entitys:
                     if(self.cells[i][j].CellID == entity.cell):
                         widget = self._widgets[i][j]
                         widget['background'] = self.cells[i][j].color
                         #widget.(background=cell.color , text=str(cell.CellID))
                         #self._widgets[i][j]. .bind('<Button-1>', lambda e, a=i, b=j: self.debug_cell(a, b))
-                for entity_remove in entitys_remove:
-                    if (self.cells[i][j].CellID == entity_remove.cell):
-                        widget = self._widgets[i][j]
-                        widget['background'] = self.cells[i][j].color
+                
                                 
                 
             
