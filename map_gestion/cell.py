@@ -18,7 +18,10 @@ class Cell:
         self.max_y  = None
         self.max_x = None 
         cd = unhash_cell(raw_data)
-        self.isActive = (cd[0] & 32 >> 5) == 1
+        if cd[2] == 0:
+            self.isActive = False
+        else:
+            self.isActive = (cd[0] & 32 >> 5) != 0
         self.lineOfSight = (cd[0] & 1) == 1
         self.layerGroundRot = cd[1] & 48 >> 4
         self.groundLevel = cd[1] & 15

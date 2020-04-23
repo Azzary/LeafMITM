@@ -1,6 +1,5 @@
 import tkinter as tk
 from map_gestion.cell import Cell
-import logging
 from map_gestion.entity import Entity
 from map_gestion.click_simulation import ClickSimulation
 
