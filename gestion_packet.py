@@ -4,7 +4,8 @@ from interface.main_interface import Interface
 from character.spells import Spells
 from map_gestion.map import Map
 from map_gestion.map_frame import Map_Frame
-
+import hash
+from copy import copy
 
 class Gestion_Packet():
     
@@ -12,7 +13,10 @@ class Gestion_Packet():
         self.interface = Interface()
         self.map = None
         self.entitie = []
+        self.map_frame = None
+        
     def gestion_server(self,packet):
+        self.entitie_remove = []
         #print("Server:" + packet)
         self.interface.print_richTextBox1("Server:" + packet)
         #character information
@@ -51,7 +55,26 @@ class Gestion_Packet():
             self.entitie_remove = self.map_frame.entities_remove
             #Enlever les try:exp... probleme avec les entities reglée 
             self.interface.update_entity(self.entitie, self.entitie_remove)
+        elif packet[:2] == "GA":
+            print(packet)
+            data = packet[2:].split(";")
+            action_id = int(data[1])
+            entity_id = int(data[2])
             
+            #Travel on the map
+            if action_id == 1:
+                cell = hash.get_Cell_Id_From_Hash(data[3][len(data[3]) - 2:])
+                for i in range(len(self.entitie)):
+                    if entity_id == self.entitie[i].id:
+                        self.entitie_remove.append(copy(self.entitie[i]))
+                        self.entitie[i].cell = cell
+                        
+                if  self.map_frame != None:
+                    self.map_frame.update_entity(self.entitie,self.entitie_remove)
+                    self.entitie = self.map_frame.entities
+                    self.entitie_remove = self.map_frame.entities_remove
+                    
+                    self.interface.update_entity(self.entitie, self.entitie_remove)
             
             #self.interface.update_map(self.map)
                           
@@ -66,7 +89,8 @@ class Gestion_Packet():
         #print("Client: "+packet)
         self.interface.print_richTextBox1("Client:" + packet)
         return packet
-                
+
+
             
         
         
