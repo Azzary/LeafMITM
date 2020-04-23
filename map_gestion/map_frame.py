@@ -2,12 +2,13 @@ from map_gestion.entity import Entity
 
 class Map_Frame():
     
-    def __init__(self, raw_data,_map, entitie):
+    def __init__(self, raw_data,_map, entitie, player_id):
         self.entities = entitie
         self.map = _map
-        self.action = '+'
+        self.player_id = player_id
         self.entities_remove = []
         self.parse_data(raw_data)
+        
         
 
     def __repr__(self):
@@ -45,8 +46,11 @@ class Map_Frame():
                 elif type == -6:  # resources
                     pass
                 else:  # players
-                    self.entities.append(Entity('Player', cell=cell, id=entity_id, name=infos[4]))
-                    
+                    if entity_id != int(self.player_id):
+                        self.entities.append(Entity('Player', cell=cell, id=entity_id, name=infos[4]))
+                    else:
+                        self.entities.append(Entity('Player', cell=cell, id=entity_id, name=infos[4], isMainCharacter = True))
+                        
                 self.map.place_entities(self.entities)
                 
                 

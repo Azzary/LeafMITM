@@ -50,33 +50,33 @@ class Gestion_Packet():
         #entity map information
         elif packet[:2] == "GM":
             #print(packet)
-            self.map_frame = Map_Frame(packet,self.map, self.entitie)
+            self.map_frame = Map_Frame(packet,self.map, self.entitie,self.character.id_)
             self.entitie = self.map_frame.entities
             self.entitie_remove = self.map_frame.entities_remove
             #Enlever les try:exp... probleme avec les entities reglée 
             self.interface.update_entity(self.entitie, self.entitie_remove)
         elif packet[:2] == "GA":
             print(packet)
-            data = packet[2:].split(";")
-            action_id = int(data[1])
-            entity_id = int(data[2])
-            
-            #Travel on the map
-            if action_id == 1:
-                cell = hash.get_Cell_Id_From_Hash(data[3][len(data[3]) - 2:])
-                for i in range(len(self.entitie)):
-                    if entity_id == self.entitie[i].id:
-                        self.entitie_remove.append(copy(self.entitie[i]))
-                        self.entitie[i].cell = cell
+            if packet != "GA;0":
+                data = packet[2:].split(";")
+                action_id = int(data[1])
+                entity_id = int(data[2])
+                
+                #Travel on the map
+                if action_id == 1:
+                    cell = hash.get_Cell_Id_From_Hash(data[3][len(data[3]) - 2:])
+                    for i in range(len(self.entitie)):
+                        if entity_id == self.entitie[i].id:
+                            self.entitie_remove.append(copy(self.entitie[i]))
+                            self.entitie[i].cell = cell
+                            
+                    if  self.map_frame != None:
+                        self.map_frame.update_entity(self.entitie,self.entitie_remove)
+                        self.entitie = self.map_frame.entities
+                        self.entitie_remove = self.map_frame.entities_remove
                         
-                if  self.map_frame != None:
-                    self.map_frame.update_entity(self.entitie,self.entitie_remove)
-                    self.entitie = self.map_frame.entities
-                    self.entitie_remove = self.map_frame.entities_remove
-                    
-                    self.interface.update_entity(self.entitie, self.entitie_remove)
-            
-            #self.interface.update_map(self.map)
+                        self.interface.update_entity(self.entitie, self.entitie_remove)
+
                           
                 
                 

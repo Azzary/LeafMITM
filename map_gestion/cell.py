@@ -22,6 +22,7 @@ class Cell:
             self.isActive = False
         else:
             self.isActive = (cd[0] & 32 >> 5) != 0
+        self.isInteractive = ((cd[7] & 2) >> 1) != 0   
         self.lineOfSight = (cd[0] & 1) == 1
         self.layerGroundRot = cd[1] & 48 >> 4
         self.groundLevel = cd[1] & 15
@@ -37,9 +38,13 @@ class Cell:
         if self.isSun:
             self.color = 'yellow'
             self.text = 'S'
+        elif self.isInteractive:
+            self.text = ' '
+            self.color = 'green'
         elif self.isActive:
             self.text = ' '
             self.color = 'white'
+        
 
     def set_entity(self, entity):
         if not entity:
@@ -47,8 +52,12 @@ class Cell:
             self.set_default_color()
         else:
             self.entity = entity
-            self.color = 'red'
-            self.text = self.entity.type[0]
+            if entity.isMainCharacter == True:
+                self.color = 'blue'
+                self.text = self.entity.type[0]
+            else:
+                self.color = 'red'
+                self.text = self.entity.type[0]
 
     def __str__(self):
         return self.text
