@@ -44,6 +44,28 @@ def crypt_IP(IP="127.0.0.1"):
         print(str(v1))
 
 
+def get_Cell_Id_From_Hash(cell_code):
+    char1 = cell_code[0]
+    char2 = cell_code[1]
+    
+    code1 = 0
+    code2 = 0
+    a = 0
+    
+    while (a < len(carac_array)):
+    
+        if (carac_array[a] == char1):
+            code1 = (a * 64)
+
+        if (carac_array[a] == char2):
+            code2 = a
+
+        a += 1
+    print((code1 + code2))
+    return (code1 + code2)
+
+
+
 if __name__ == "__main__":
     aa = Hash()
     print(aa.decrypt_IP("7?000001"))
