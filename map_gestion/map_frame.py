@@ -73,3 +73,28 @@ class Map_Frame():
         self.entities = entity
         for remov_enti in remove_entities:
             self.entities_remove.append(remov_enti)
+            
+            
+           
+    def update_interactive(self, packet):
+        cells_id = []
+        for data in packet[4:].split("|"):
+            data = data.split(";")
+            cell_id = int(data[0])
+            action = int(data[1])
+            if action == 2:
+                self.map.update_interactive(cell_id)
+            elif action == 3:
+                self.map.update_interactive(cell_id)
+
+                """
+                if the character harvests:
+                    pass
+                else:
+                    pass resource steal
+                """
+            elif action == 4: #need to leave the map to be able to interact with
+                self.map.update_interactive(cell_id)
+            cells_id.append(cell_id)
+            
+        return cells_id

@@ -79,3 +79,6 @@ class Map():
             self.cells[int(cell)].set_entity(indexed_by_cell[cell])
             #self.cells[int(cell)].color = "red"
             #self.table.set_data(self.map.matrixfy())
+            
+    def update_interactive(self, cell_id):
+        self.cells[cell_id].set_not_interactive()

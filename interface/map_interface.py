@@ -43,7 +43,10 @@ class MapInterface():
     def update_entity(self, entities,entitie_remove):
         self.table.set_entities(entities, entitie_remove)
         
-        
+    
+    def update_resource(self, cells_id):
+        self.table.update_resource(cells_id)
+    
     def update(self):
         if self.map:
             self.table.set_data(self.map.matrixfy())

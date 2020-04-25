@@ -67,11 +67,13 @@ class Table(tk.Frame):
                         #self._widgets[i][j]. .bind('<Button-1>', lambda e, a=i, b=j: self.debug_cell(a, b))
                 
                                 
-                
-            
-            
-        
-
+    def update_resource(self, cells_id):
+       for i in range(len(self.cells)):
+            for j in range(len(self.cells[i])):
+                for cell_id in cells_id:
+                    if (self.cells[i][j].CellID == cell_id):
+                        widget = self._widgets[i][j]
+                        widget['background'] = self.cells[i][j].color
 
     def debug_cell(self, i, j):
         print(self.cells[i][j].__dict__)

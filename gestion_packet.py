@@ -17,6 +17,7 @@ class Gestion_Packet():
         
     def gestion_server(self,packet):
         self.entitie_remove = []
+        
         #print("Server:" + packet)
         self.interface.print_richTextBox1("Server:" + packet)
         #character information
@@ -57,7 +58,7 @@ class Gestion_Packet():
             self.interface.update_entity(self.entitie, self.entitie_remove)
         elif packet[:2] == "GA":
             print(packet)
-            if packet != "GA;0":
+            if packet != "GA;0" and packet[:3] != "GAS":
                 data = packet[2:].split(";")
                 action_id = int(data[1])
                 entity_id = int(data[2])
@@ -76,9 +77,9 @@ class Gestion_Packet():
                         self.entitie_remove = self.map_frame.entities_remove
                         
                         self.interface.update_entity(self.entitie, self.entitie_remove)
-
-                          
-                
+        elif packet[:3] == "GDF":
+            cells_id = self.map_frame.update_interactive(packet)
+            self.interface.update_resource(cells_id)    
                 
         return packet
      

@@ -58,6 +58,11 @@ class Cell:
             else:
                 self.color = 'red'
                 self.text = self.entity.type[0]
-
+                
+                
+    def set_not_interactive(self):
+        self.color = 'brown'
+        self.isInteractive = False
+    
     def __str__(self):
         return self.text

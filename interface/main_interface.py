@@ -173,7 +173,8 @@ class Interface(threading.Thread):
     def update_entity(self, entity, entitie_remove):
         self.map.update_entity(entity, entitie_remove)
         
-
+    def update_resource(self, cells_id):
+        self.map.update_resource(cells_id)
         
 
 

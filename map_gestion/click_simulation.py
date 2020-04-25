@@ -36,12 +36,10 @@ class ClickSimulation():
         else:
             x = 51+24.55*x
             y = 28+13.5*y
-
-        print(x,y)
-        print(x * scallX,y * scallY)
+            
         x = round(x * scallX)
         y = round(y * scallY)
-        print(x,y)
+
         #la premiere valeur represente l'ecart de la cell en fonction de la base de la carte
         #la valeur miltiplier represente l'ecart entre charque case
         lParam = win32api.MAKELONG(x, y)
