@@ -58,7 +58,7 @@ class Gestion_Packet():
             self.interface.update_entity(self.entitie, self.entitie_remove)
         elif packet[:2] == "GA":
             print(packet)
-            if packet != "GA;0" and packet[:3] != "GAS":
+            if packet != "GA;0" and packet[:3] != "GAS" and packet[:3] != "GAF":
                 data = packet[2:].split(";")
                 action_id = int(data[1])
                 entity_id = int(data[2])
@@ -77,6 +77,16 @@ class Gestion_Packet():
                         self.entitie_remove = self.map_frame.entities_remove
                         
                         self.interface.update_entity(self.entitie, self.entitie_remove)
+                
+                #Le personnage recolte
+                elif action_id == 501:
+                    harvest_time = int(data[3].split(",")[1]) / 1000
+                    cell_id = data[3].split(",")[0]
+                    type_of_harvest = data[0]
+                    print(f"Le personnage recolte un resource sur la cellid {cell_id} temps d'attente {str(harvest_time)} s \n(type de resource = {type_of_harvest})")
+                    
+                    
+                    
         elif packet[:3] == "GDF":
             cells_id = self.map_frame.update_interactive(packet)
             self.interface.update_resource(cells_id)    
