@@ -77,5 +77,7 @@ class Table(tk.Frame):
 
     def debug_cell(self, i, j):
         print(self.cells[i][j].__dict__)
-
-        self.clicksimulation.click(self.cells[i][j].__dict__)
+        if self.cells[i][j].isInteractive == True:
+            self.clicksimulation.shift_click(self.cells[i][j].__dict__)
+        else:
+            self.clicksimulation.click(self.cells[i][j].__dict__)
