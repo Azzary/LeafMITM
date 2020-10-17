@@ -10,6 +10,9 @@ Using frida for hook dofus, so you need fritm.
 pip install fritm
 ```
 
+you need to change the variable PATH in : LeafMITM/map/contants.py
+
+
 ~~You need pywin32, https://pypi.org/project/pywin32/ to simulate a click otherwise the bot will not work
 (it is not a pixel bot, it only simulates a click without using your mouse)
 pip install pywin32~~
