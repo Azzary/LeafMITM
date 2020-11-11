@@ -10,6 +10,14 @@ Using frida for hook dofus, so you need fritm.
 pip install fritm
 ```
 
+
+Change Log:
+Login
+Map Gestion (Load entity, move, resource il can be use or not)
+Pathfinding
+Auto Fight(Move, lauch spells)
+Job (Recolte)
+
 you need to change the variable PATH in : LeafMITM/map/contants.py
 
 
